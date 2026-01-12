@@ -68,17 +68,17 @@ export const CheckoutPage = () => {
       const order = response.data;
 
       // Check if Razorpay is configured
-      // if (!order.razorpay_order_id) {
-      //   toast.error('Payment gateway not configured. Please contact admin.');
-      //   setLoading(false);
-      //   return;
-      // }
       if (!order.razorpay_order_id) {
-         toast.success('Order placed successfully');
-         clearCart();
-         navigate(`/order-confirmation/${order.order_number}`);
-         return;
-          }
+        toast.error('Payment gateway not configured. Please contact admin.');
+        setLoading(false);
+        return;
+      }
+      // if (!order.razorpay_order_id) {
+      //    toast.success('Order placed successfully');
+      //    clearCart();
+      //    navigate(`/order-confirmation/${order.order_number}`);
+      //    return;
+      //     }
 
 
       // Initialize Razorpay payment
@@ -91,11 +91,16 @@ export const CheckoutPage = () => {
         order_id: order.razorpay_order_id,
         handler: async (response) => {
           try {
-            // Verify payment
+            // 1. Verify payment
             await api.post('/orders/verify-payment', {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature
+            });
+
+            // 2. Confirm order AFTER payment
+            await api.post('/orders/confirm', {
+              order_number: order.order_number
             });
 
             clearCart();
@@ -104,8 +109,10 @@ export const CheckoutPage = () => {
           } catch (error) {
             console.error('Payment verification failed:', error);
             toast.error('Payment verification failed');
+            setLoading(false);
           }
         },
+
         prefill: {
           name: formData.customer_name,
           email: formData.customer_email,
