@@ -17,6 +17,12 @@ import { AdminOrdersPage } from './pages/admin/AdminOrdersPage';
 import { AdminPaymentsPage } from './pages/admin/AdminPaymentsPage';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
+import Terms from './pages/terms';
+import PrivacyPolicy from './pages/privacy-policy';
+import RefundPolicy from './pages/refund-policy';
+import ShippingPolicy from './pages/shipping-policy';
+import ContactUs from './pages/contact-us';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -33,6 +39,12 @@ function App() {
           <Route path="/checkout" element={<><Header /><CheckoutPage /></>} />
           <Route path="/order-confirmation/:orderNumber" element={<><Header /><OrderConfirmationPage /></>} />
           <Route path="/track-order" element={<><Header /><OrderTrackingPage /></>} />
+          <Route path="/terms" element={<><Header /><Terms /></>} />
+          <Route path="/privacy-policy" element={<><Header /><PrivacyPolicy /></>} />
+          <Route path="/refund-policy" element={<><Header /><RefundPolicy /></>} />
+          <Route path="/shipping-policy" element={<><Header /><ShippingPolicy /></>} />
+          <Route path="/contact-us" element={<><Header /><ContactUs /></>} />
+
           
           {/* Admin Routes - Protected */}
           <Route path="/admin" element={<AdminLoginPage />} />
@@ -43,6 +55,8 @@ function App() {
           <Route path="/admin/settings" element={<ProtectedAdminRoute><AdminSettingsPage /></ProtectedAdminRoute>} />
         </Routes>
         
+       <Footer />
+
         <Toaster 
           position="top-right"
           toastOptions={{
