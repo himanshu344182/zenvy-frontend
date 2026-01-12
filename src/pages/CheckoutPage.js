@@ -99,9 +99,9 @@ export const CheckoutPage = () => {
             });
 
             // 2. Confirm order AFTER payment
-            await api.post('/orders/confirm', {
-              order_number: order.order_number
-            });
+            // await api.post('/orders/confirm', {
+            //   order_number: order.order_number
+            // });
 
             clearCart();
             toast.success('Payment successful!');
