@@ -93,12 +93,10 @@ export const OrderTrackingPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-brutalist-primary text-white font-bold px-6 border-2 border-black shadow-brutalist hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all disabled:opacity-50 flex items-center gap-2"
+                className="bg-brutalist-primary text-white font-bold px-8 border-2 border-black shadow-brutalist hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all disabled:opacity-50"
               >
-                <Search className="w-5 h-5" />
-                TRACK
+                TRACK ORDER
               </button>
-
             </div>
           </form>
 
