@@ -91,21 +91,26 @@ export const CheckoutPage = () => {
         order_id: order.razorpay_order_id,
         handler: async (response) => {
           try {
-            // 1. Verify payment
-            await api.post('/orders/verify-payment', {
+            const verifyRes = await api.post('/orders/verify-payment', {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature
             });
 
-            // 2. Confirm order AFTER payment
-            // await api.post('/orders/confirm', {
-            //   order_number: order.order_number
-            // });
+            if (verifyRes.data?.status === "success") {
+              clearCart();
+              toast.success('Payment successful!');
 
-            clearCart();
-            toast.success('Payment successful!');
-            navigate(`/order-confirmation/${order.order_number}`);
+              // ✅ CRITICAL FIX
+              setLoading(false);
+
+              // ✅ FORCE NAVIGATION AFTER MODAL CLOSE
+              setTimeout(() => {
+                navigate(`/order-confirmation/${order.order_number}`);
+              }, 300);
+            } else {
+              throw new Error("Verification failed");
+            }
           } catch (error) {
             console.error('Payment verification failed:', error);
             toast.error('Payment verification failed');
