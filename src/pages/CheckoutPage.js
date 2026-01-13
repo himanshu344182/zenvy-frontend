@@ -86,7 +86,7 @@ export const CheckoutPage = () => {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID || '',
         amount: order.total * 100,
         currency: 'INR',
-        name: 'Everything Store',
+        name: 'Zenvy',
         description: `Order ${order.order_number}`,
         order_id: order.razorpay_order_id,
         handler: async (response) => {
