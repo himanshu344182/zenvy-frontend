@@ -22,6 +22,7 @@ export const addToCart = (product, quantity = 1) => {
   }
   
   localStorage.setItem('cart', JSON.stringify(cart));
+  window.dispatchEvent(new Event("cart-updated"));
   return cart;
 };
 
@@ -35,6 +36,7 @@ export const updateCartItem = (productId, quantity) => {
     }
     item.quantity = quantity;
     localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart-updated"));
   }
   
   return cart;
@@ -44,11 +46,13 @@ export const removeFromCart = (productId) => {
   const cart = getCart();
   const newCart = cart.filter(item => item.product_id !== productId);
   localStorage.setItem('cart', JSON.stringify(newCart));
+  window.dispatchEvent(new Event("cart-updated"));
   return newCart;
 };
 
 export const clearCart = () => {
   localStorage.removeItem('cart');
+  window.dispatchEvent(new Event("cart-updated"));
   return [];
 };
 

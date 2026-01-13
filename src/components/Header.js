@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Search, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getCartCount } from '../utils/cart';
@@ -8,7 +8,22 @@ export const Header = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const cartCount = getCartCount();
+  const [cartCount, setCartCount] = useState(getCartCount());
+  const [ping, setPing] = useState(false);
+
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      setCartCount(getCartCount());
+      setPing(true);
+      setTimeout(() => setPing(false), 300);
+    };
+
+    window.addEventListener("cart-updated", handleCartUpdate);
+
+    return () => {
+      window.removeEventListener("cart-updated", handleCartUpdate);
+    };
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -77,9 +92,8 @@ export const Header = () => {
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span 
-                    className="absolute -top-1 -right-1 bg-gradient-to-r from-zenvy-accent to-pink-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
-                    data-testid="cart-count-badge"
+                  <span className={"absolute -top-1 -right-1 bg-gradient-to-r from-zenvy-accent to-pink-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold animate-bounce"} 
+                  data-testid="cart-count-badge"
                   >
                     {cartCount}
                   </span>

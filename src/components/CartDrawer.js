@@ -6,21 +6,27 @@ import { useNavigate } from 'react-router-dom';
 export const CartDrawer = ({ isOpen, onClose }) => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
+  const notifyCartUpdate = () => {
+    window.dispatchEvent(new Event("cart-updated"));
+  };
 
   useEffect(() => {
     if (isOpen) {
       setCart(getCart());
+      notifyCartUpdate();
     }
   }, [isOpen]);
 
   const handleUpdateQuantity = (productId, newQuantity) => {
     const updatedCart = updateCartItem(productId, newQuantity);
     setCart(updatedCart);
+    notifyCartUpdate();
   };
 
   const handleRemove = (productId) => {
     const updatedCart = removeFromCart(productId);
     setCart(updatedCart);
+    notifyCartUpdate();
   };
 
   const handleCheckout = () => {
