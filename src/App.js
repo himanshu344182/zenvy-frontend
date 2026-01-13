@@ -33,137 +33,17 @@ function App() {
         
         <Routes>
           {/* Customer Routes */}
-          <Route
-            path="/"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <HomePage />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/products"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <ProductsPage />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/product/:id"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <ProductDetailPage />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/checkout"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <CheckoutPage />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/order-confirmation/:orderNumber"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <OrderConfirmationPage />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/track-order"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <OrderTrackingPage />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/terms"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <Terms />
-                </main>
-              </>
-            }
-          />
-          <Route
-            path="/privacy-policy"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <PrivacyPolicy />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/refund-policy"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <RefundPolicy />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/shipping-policy"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <ShippingPolicy />
-                </main>
-              </>
-            }
-          />
-
-          <Route
-            path="/contact-us"
-            element={
-              <>
-                <Header />
-                <main className="pt-[140px] md:pt-[160px]">
-                  <ContactUs />
-                </main>
-              </>
-            }
-          />
-
+          <Route path="/" element={<><Header /><HomePage /></>} />
+          <Route path="/products" element={<><Header /><ProductsPage /></>} />
+          <Route path="/product/:id" element={<><Header /><ProductDetailPage /></>} />
+          <Route path="/checkout" element={<><Header /><CheckoutPage /></>} />
+          <Route path="/order-confirmation/:orderNumber" element={<><Header /><OrderConfirmationPage /></>} />
+          <Route path="/track-order" element={<><Header /><OrderTrackingPage /></>} />
+          <Route path="/terms" element={<><Header /><Terms /></>} />
+          <Route path="/privacy-policy" element={<><Header /><PrivacyPolicy /></>} />
+          <Route path="/refund-policy" element={<><Header /><RefundPolicy /></>} />
+          <Route path="/shipping-policy" element={<><Header /><ShippingPolicy /></>} />
+          <Route path="/contact-us" element={<><Header /><ContactUs /></>} />
 
           
           {/* Admin Routes - Protected */}
