@@ -24,10 +24,23 @@ export const ProductsPage = () => {
       let url = '/products?limit=100';
       if (searchQuery) url += `&search=${searchQuery}`;
       if (minPrice) url += `&min_price=${minPrice}`;
-      if (maxPrice) url += `&max_price=${maxPrice}`;
+      // if (maxPrice) url += `&max_price=${maxPrice}`;
       
       const response = await api.get(url);
-      setProducts(response.data);
+
+      const filteredProducts = response.data.filter((product) => {
+        const discountedPrice =
+          product.price * (1 - product.discount / 100);
+
+        if (maxPrice && discountedPrice > Number(maxPrice)) {
+          return false;
+        }
+
+        return true;
+      });
+
+      setProducts(filteredProducts);
+
     } catch (error) {
       console.error('Failed to fetch products:', error);
     } finally {
@@ -106,7 +119,7 @@ export const ProductsPage = () => {
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={handleApplyFilters}
-                    className="w-full bg-brutalist-primary text-white font-bold py-2 px-4 border-2 border-black hover:shadow-brutalist transition-all"
+                    className="w-full bg-brutalist-primary text-black font-bold py-2 px-4 border-2 border-black hover:shadow-brutalist transition-all"
                     data-testid="apply-filters-btn"
                   >
                     APPLY
@@ -134,7 +147,7 @@ export const ProductsPage = () => {
                 <p className="text-xl font-manrope text-gray-600">No products found</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="products-grid">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" data-testid="products-grid">
                 {products.map((product) => {
                   const finalPrice = product.price * (1 - product.discount / 100);
                   return (
@@ -146,7 +159,7 @@ export const ProductsPage = () => {
                     >
                       <div className="aspect-square overflow-hidden border-b-2 border-black">
                         <img
-                          src={product.images[0]}
+                          src={product.images[0] || '/placeholder.png'}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           data-testid={`product-image-${product.id}`}
