@@ -155,7 +155,7 @@ export const HomePage = () => {
               <div className="animate-pulse text-gray-500">Loading amazing products...</div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-testid="products-grid">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" data-testid="products-grid">
               {products.map((product) => {
                 const finalPrice = product.price * (1 - product.discount / 100);
                 return (
